@@ -1,0 +1,36 @@
+I need a Django website that allows file sharing between the members. Here are the detailed requirements:
+
+1) The user should be able to register to the website with the following information:
+- First Name
+- Last Name
+- Company Name
+- Company Logo
+- Email
+- Phone Number
+
+2) If someone registers, an email should go out to the site admin so that he can approve the registration.
+
+3) The user that registered in step #1 can only login if the site admin approves the user.
+
+4) The dashboard for admin should allow approving or deactivating the users.
+
+5) As soon as the registered user login, they will be redirected to the user dashboard where they can see all the previously shared files
+ by them and with them (in separate tabs) and should show a button if the user wants to share a new file called "Add new product".
+
+6) When I say "product" it's a list of documents so the "Add New Product" button basically displays a form that allows the user to submit
+ the following fields:
+
+a) Product Name
+b) Select the users that you want to share this product with (will display a list of all registered and approved users from step #1)
+c) List of files that are associated with this product
+This upload field should allow the users to upload the files in any format and any size. The uploaded files should be protected so that it
+ can only be accessed by the person the files were shared with in step b.
+Field designed for c should be a repeater field which allows multiple file submission and along with a checkbox with the language "replace
+ the logo with recipient's logo", if that is checked, the uploaded file should be processed and the logo from the user from b's profile
+  needs to be overlaid on the top part of the file uploaded.
+d) Submit button
+
+7) Once the user hits submit button, an email should go out to the user from step 6b that a file has been uploaded for them and they can
+ view them in their dashboard (in the Shared with me tab).
+
+I need this up and running in about 7 days. I have setup a blank Django installation on PythonAnywhere which you can use for development.

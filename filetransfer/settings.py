@@ -179,3 +179,6 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
     "Access-Control-Allow-Origin",
 ]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "logos")
