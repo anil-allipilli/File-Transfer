@@ -80,7 +80,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=150, blank=True)
     phone_number = models.CharField(max_length=10, blank=True)
     company_name = models.CharField(max_length=150, blank=True)
-    company_logo = models.ImageField(upload_to=upload_image_path, blank=True)
+    company_logo = models.ImageField(upload_to="logos/", blank=True)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
