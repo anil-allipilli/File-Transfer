@@ -9,24 +9,6 @@ import os
 from accounts.tasks import send_staff_email_task
 
 
-def get_filename_ext(filepath):
-    base_name = os.path.basename(filepath)
-    name, ext = os.path.splitext(base_name)
-    return name, ext
-
-
-def upload_image_path(instance, filename):
-    # print(instance)
-    # print(filename)
-    new_filename = instance.email.split("@")
-    name, ext = get_filename_ext(filename)
-    final_filename = "{new_filename}{ext}".format(new_filename=new_filename, ext=ext)
-    print(final_filename)
-    return "logos/{new_filename}/{final_filename}".format(
-        new_filename=new_filename, final_filename=final_filename
-    )
-
-
 class MyUserManager(BaseUserManager):
     def create_user(
         self,
@@ -53,6 +35,7 @@ class MyUserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         full_name = first_name + " " + last_name
+
         send_staff_email_task.delay(full_name, company_name, email)
         return user
 
