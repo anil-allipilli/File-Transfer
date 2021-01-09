@@ -14,8 +14,6 @@ class ProductSerializer(serializers.ModelSerializer):
     product_users = serializers.StringRelatedField(many=True)
     owner = serializers.StringRelatedField(many=False)
 
-
     class Meta:
         model = Product
         fields = ["id", "name", "owner", "product_users", "product_files"]
-``

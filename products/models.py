@@ -5,8 +5,10 @@ from accounts.models import MyUser
 
 class Product(models.Model):
     name = models.CharField(max_length=30)
-    owner = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name="owner")
-    product_users = models.ManyToManyField(MyUser, related_name="users")
+    owner = models.ForeignKey(
+        MyUser, on_delete=models.CASCADE, related_name="my_products"
+    )
+    product_users = models.ManyToManyField(MyUser, related_name="shared_products")
 
     def __str__(self):
         return self.name

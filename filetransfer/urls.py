@@ -20,7 +20,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework_simplejwt import views as jwt_views
 from accounts.viewsets import MyUserViewSet
-from products.viewsets import ProductViewset, ProductFileViewset
+from products.viewsets import (
+    ProductViewset,
+    ProductFileViewset,
+    MyProductsViewset,
+    SharedProductsViewset,
+)
 from products.views import create_product
 
 router = DefaultRouter()
@@ -37,5 +42,12 @@ urlpatterns = [
         "api/token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"
     ),
     path("createproduct/", create_product, name="createproduct"),
+    path("myproducts/", MyProductsViewset.as_view({"get": "list"}), name="myproducts"),
+    path(
+        "sharedproducts/",
+        SharedProductsViewset.as_view({"get": "list"}),
+        name="sharedproducts",
+    ),
+    # path("myproducts/", my_products, name="myproducts"),
     path("", include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
