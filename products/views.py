@@ -5,6 +5,7 @@ from rest_framework import status, mixins
 from products.models import Product, ProductFile
 from accounts.models import MyUser
 from products.serializers import ProductSerializer
+from products.tasks import send_product_email_to_users
 
 
 @api_view(["POST"])
@@ -19,6 +20,10 @@ def create_product(request):
             print(key, value)
             sharing_user = MyUser.objects.get(email=value)
             new_product.product_users.add(sharing_user)
+        users_list = [x.email for x in new_product.product_users.all()]
+        send_product_email_to_users.delay(
+            new_product.name, new_product.owner, users_list
+        )
         new_product.save()
 
         if "file" in key:
