@@ -1,9 +1,11 @@
 from rest_framework import viewsets
 from products.models import Product, ProductFile
 from products.serializers import ProductSerializer, ProductFileSerializer
+from products.permissions import IsItSharedWithUser
 
 
 class ProductViewset(viewsets.ModelViewSet):
+    permission_classes = [IsItSharedWithUser]
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

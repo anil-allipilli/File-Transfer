@@ -20,12 +20,13 @@ def create_product(request):
             print(key, value)
             sharing_user = MyUser.objects.get(email=value)
             new_product.product_users.add(sharing_user)
-        users_list = [x.email for x in new_product.product_users.all()]
-        send_product_email_to_users.delay(
-            new_product.name, new_product.owner, users_list
-        )
-        new_product.save()
 
+        new_product.save()
+        users_list = [x.email for x in new_product.product_users.all()]
+
+        send_product_email_to_users.delay(
+            new_product.name, new_product.owner.email, users_list
+        )
         if "file" in key:
             print(key, value)
             new_product_file = ProductFile(file=value, product=new_product)
