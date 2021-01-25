@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from django.conf.urls.static import static
 from django.conf import settings
@@ -27,6 +27,7 @@ from products.viewsets import (
     SharedProductsViewset,
 )
 from products.views import create_product
+from django.views.generic import TemplateView
 
 router = DefaultRouter()
 
@@ -49,5 +50,10 @@ urlpatterns = [
         name="sharedproducts",
     ),
     # path("myproducts/", my_products, name="myproducts"),
-    path("", include(router.urls)),
+    path("api/", include(router.urls)),
+    # path("", TemplateView.as_view(template_name="index.html")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns.append(
+    re_path(r"^", TemplateView.as_view(template_name="index.html")),
+)

@@ -8,6 +8,7 @@ class IsItSharedWithUser(permissions.BasePermission):
         print(request.user)
         print(obj.product_users.all())
         print(request.user not in obj.product_users.all())
+        print(request.user != obj.owner)
         # print(obj.owner)
         if (request.user not in obj.product_users.all()) and (
             request.user != obj.owner
